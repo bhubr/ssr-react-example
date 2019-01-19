@@ -19,7 +19,8 @@ class App extends Component {
     const { posts } = this.state;
     return (
       <div>
-        <h1>{data}</h1>
+        <h1>React SSR</h1>
+        <p><code>data</code> prop: {data ? data : 'N/A'}</p>
         {
           posts.map(post => (
             <div key={post.id}>
