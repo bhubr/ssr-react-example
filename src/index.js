@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './shared/App';
 
-const title = 'My Minimal React Webpack Babel Setup';
+const title = 'React Webpack Babel Nodemon';
 
 ReactDOM.render(
-  <div>{title}</div>,
+  <App data={title} />,
   document.getElementById('app')
 );
 

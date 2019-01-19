@@ -28,7 +28,20 @@ const browserConfig = {
     })
   ],
   devServer: {
-    contentBase: './dist',
+    contentBase: path.join(__dirname, '/dist/public'), // serve your static files from here
+    watchContentBase: true, // initiate a page refresh if static content changes
+    proxy: [ // allows redirect of requests to webpack-dev-server to another destination
+      {
+        context: ['/api', '/auth'],  // can have multiple
+        target: 'http://localhost:4040', // server and port to redirect to
+        secure: false,
+      },
+    ],
+    port: 3030, // port webpack-dev-server listens to, defaults to 8080
+    overlay: { // Shows a full-screen overlay in the browser when there are compiler errors or warnings
+      warnings: false, // defaults to false
+      errors: false, // defaults to false
+    },
     hot: true
   }
 };
@@ -38,7 +51,7 @@ const serverConfig = {
   target: 'node',
   externals: [nodeExternals()],
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: 'server.js',
     publicPath: '/'
   },
