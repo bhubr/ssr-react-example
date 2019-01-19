@@ -1,3 +1,5 @@
 node_modules
 package-lock.json
+dist/public/bundle.js
+dist/server.js
 
