@@ -1,8 +1,10 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const isProd = process.env.NODE_ENV === 'production';
 
 const browserConfig = {
+  mode: isProd ? 'production' : 'development',
   entry: './src/index.js',
   module: {
     rules: [
@@ -28,7 +30,7 @@ const browserConfig = {
     })
   ],
   devServer: {
-    contentBase: path.join(__dirname, '/dist/public'), // serve your static files from here
+    contentBase: path.join(__dirname, '/dist/devserver'), // serve your static files from here
     watchContentBase: true, // initiate a page refresh if static content changes
     proxy: [ // allows redirect of requests to webpack-dev-server to another destination
       {
@@ -53,7 +55,7 @@ const serverConfig = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js',
-    publicPath: '/'
+    publicPath: '/dist'
   },
   module: {
     rules: [
@@ -64,7 +66,10 @@ const serverConfig = {
     new webpack.DefinePlugin({
       __isBrowser__: "false"
     })
-  ]
+  ],
+  node: {
+    __dirname: false
+  }
 };
 
 module.exports = [browserConfig, serverConfig];

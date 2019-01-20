@@ -4,7 +4,7 @@ import App from './shared/App';
 
 const title = 'React Webpack Babel Nodemon';
 
-ReactDOM.render(
+ReactDOM.hydrate(
   <App data={title} />,
   document.getElementById('app')
 );
