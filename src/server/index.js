@@ -1,11 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
-import { renderToString } from 'react-dom/server';
-import React from 'react';
 import serialize from 'serialize-javascript';
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { matchPath } from 'react-router-dom';
+
 import { fetchPopularRepos } from '../shared/api';
 import App from '../shared/App';
+import routes from '../shared/routes'
 
 const PORT = 4040;
 const app = express();
@@ -25,30 +28,36 @@ app.get('/api/posts', (req, res) => res.json([
 ]));
 
 app.get("*", (req, res, next) => {
-  fetchPopularRepos()
-    .then(data => {
-      const markup = renderToString(
-        <App data={data} />
-      );
+  const activeRoute = routes.find(
+    (route) => matchPath(req.url, route)
+  ) || {};
 
-      res.send(`
-        <!DOCTYPE html>
-        <html>
-          <head>
-            <title>SSR with RR</title>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-          </head>
+  const promise = activeRoute.fetchInitialData
+    ? activeRoute.fetchInitialData(req.path)
+    : Promise.resolve()
 
-          <body>
-            <div id="app">${markup}</div>
+  promise.then(data => {
+    const markup = renderToString(
+      <App data={data} />
+    );
 
-            <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
-            <script src="/bundle.js" defer></script>
-          </body>
-        </html>
-      `);
+    res.send(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>SSR with RR</title>
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+        </head>
 
-    });
+        <body>
+          <div id="app">${markup}</div>
+
+          <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
+          <script src="/bundle.js" defer></script>
+        </body>
+      </html>
+    `);
+  }).catch(next);
 });
 
 app.listen(PORT, () => {

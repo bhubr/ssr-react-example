@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-export const fetchPopularRepos = (language = 'javascript') => {
+export const fetchPopularRepos = (language = 'all') => {
   const encodedURI = encodeURI(`https://api.github.com/search/repositories?q=stars:>1+language:${language}&sort=stars&order=desc&type=Repositories&per_page=10`);
 
   return axios.get(encodedURI)
