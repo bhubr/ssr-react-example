@@ -10,6 +10,8 @@ Sources:
 6. [SSR and Server Only Modules](https://arunoda.me/blog/ssr-and-server-only-modules)
 7. [Fixing the "cannot GET /URL" error on refresh with React Router and Reach Router](https://tylermcginnis.com/react-router-cannot-get-url-refresh/)
 8. [Dealing with Asynchronous APIs in Server-rendered React](https://www.sitepoint.com/asynchronous-apis-server-rendered-react/) (not used here)
+9. [Absolute Imports with Create React App](https://medium.com/@ktruong008/absolute-imports-with-create-react-app-4338fbca7e3d)
+10. [Webpack Separate CSS](https://medium.com/riow/webpack-separate-css-5d1c1e862d93)
 
 ## Log
 
@@ -21,3 +23,5 @@ Sources:
 
     * put `mode: 'development'` in webpack config to deactivate optimizations
     * follow this: https://github.com/mysqljs/mysql/issues/1655#issuecomment-407564410
+
+* Putting the babel config inside `package.json` instead of `.babelrc` prevents forgetting to put it!
