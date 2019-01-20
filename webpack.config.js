@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const isProd = process.env.NODE_ENV === 'production';
 
 const browserConfig = {
@@ -30,9 +31,13 @@ const browserConfig = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       __isBrowser__: "true"
+    }),
+    new HtmlWebpackPlugin({
+      template: 'dist/devserver/index.html'
     })
   ],
   devServer: {
+    historyApiFallback: true,
     contentBase: path.join(__dirname, '/dist/devserver'), // serve your static files from here
     watchContentBase: true, // initiate a page refresh if static content changes
     proxy: [ // allows redirect of requests to webpack-dev-server to another destination

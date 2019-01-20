@@ -20,7 +20,7 @@ export default function Navbar () {
     param: 'java',
   }];
 
-  const posts = [1, 2, 3, 4, 5];
+  const posts = [1, 2, 3, 4, 5, 6];
 
   const liStyle = { listStyleType: 'none', display: 'inline-block', padding: '5px 10px' };
 

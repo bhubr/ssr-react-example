@@ -7,10 +7,10 @@ class PostList extends Component {
 
     let posts
     if (__isBrowser__) {
-      posts = window.__INITIAL_DATA__
-      delete window.__INITIAL_DATA__
+      posts = window.__INITIAL_DATA__ || [];
+      delete window.__INITIAL_DATA__;
     } else {
-      posts = props.staticContext.data
+      posts = props.staticContext.data;
     }
 
     this.state = {
@@ -20,10 +20,14 @@ class PostList extends Component {
 
   componentDidMount() {
     const { posts } = this.state;
-    if(!posts) {
-      this.props.fetchInitialData()
-        .then(posts => this.setState({ posts }));
+    if(!posts.length) {
+      this.fetchPosts();
     }
+  }
+
+  fetchPosts() {
+    this.props.fetchInitialData()
+      .then(posts => this.setState({ posts }));
   }
 
   render() {

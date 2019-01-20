@@ -8,6 +8,7 @@ Sources:
 4. [Running a node express server using webpack-dev-server](https://stackoverflow.com/questions/35233291/running-a-node-express-server-using-webpack-dev-server#answer-41726825)
 5. [Use webpack with __dirname correctly](https://codeburst.io/use-webpack-with-dirname-correctly-4cad3b265a92)
 6. [SSR and Server Only Modules](https://arunoda.me/blog/ssr-and-server-only-modules)
+7. [Fixing the "cannot GET /URL" error on refresh with React Router and Reach Router](https://tylermcginnis.com/react-router-cannot-get-url-refresh/)
 
 ## Log
 
