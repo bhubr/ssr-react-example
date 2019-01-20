@@ -5,7 +5,7 @@ const isProd = process.env.NODE_ENV === 'production';
 
 const browserConfig = {
   mode: isProd ? 'production' : 'development',
-  entry: './src/index.js',
+  entry: './src/client/index.js',
   module: {
     rules: [
       {
@@ -16,7 +16,10 @@ const browserConfig = {
     ]
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx']
+    extensions: ['*', '.js', '.jsx'],
+    alias: {
+      api: path.resolve(__dirname, 'src/client/api.js')
+    }
   },
   output: {
     path: path.resolve(__dirname, 'dist/public'),
@@ -52,6 +55,11 @@ const serverConfig = {
   entry: './src/server/index.js',
   target: 'node',
   externals: [nodeExternals()],
+  resolve: {
+    alias: {
+      api: path.resolve(__dirname, 'src/server/api.js')
+    }
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'server.js',

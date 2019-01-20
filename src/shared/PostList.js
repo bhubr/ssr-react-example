@@ -18,6 +18,14 @@ class PostList extends Component {
     };
   }
 
+  componentDidMount() {
+    const { posts } = this.state;
+    if(!posts) {
+      this.props.fetchInitialData()
+        .then(posts => this.setState({ posts }));
+    }
+  }
+
   render() {
     const { posts } = this.state;
     return (

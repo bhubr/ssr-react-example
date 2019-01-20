@@ -6,10 +6,10 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
 
-import { fetchPopularRepos } from '../shared/api';
+import { fetchPopularRepos, fetchAllPosts, fetchSinglePost } from './api';
 import App from '../shared/App';
 import routes from '../shared/routes';
-import posts from '../shared/data/posts';
+import posts from './data/posts';
 
 const PORT = 4040;
 const app = express();
@@ -21,6 +21,12 @@ app.use(cors());
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 app.get('/api/posts', (req, res) => res.json(posts));
+
+app.get('/api/posts/:id', (req, res) => {
+  const id = Number(req.params.id);
+  const post = posts.find(p => p.id === id);
+  res.json(post);
+});
 
 app.get("*", (req, res, next) => {
   const activeRoute = routes.find(

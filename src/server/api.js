@@ -9,8 +9,8 @@ export const fetchPopularRepos = (language = 'all') => {
     .then(res => res.data)
     .then(repos => repos.items)
     .catch(error => {
-      console.warn(error)
-      return null
+      console.warn(error);
+      return null;
     });
 };
 

@@ -3,7 +3,7 @@ import Home from './Home';
 import Grid from './Grid';
 import PostList from './PostList';
 import PostSingle from './PostSingle';
-import { fetchPopularRepos, fetchAllPosts, fetchSinglePost } from './api';
+import { fetchPopularRepos, fetchAllPosts, fetchSinglePost } from 'api';
 
 const routes =  [
   {

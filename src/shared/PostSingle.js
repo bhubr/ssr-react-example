@@ -1,5 +1,6 @@
 // shared/PostSingle.js
 import React, { Component } from 'react';
+import { fetchSinglePost } from 'api';
 
 class PostSingle extends Component {
   constructor(props) {
@@ -16,6 +17,15 @@ class PostSingle extends Component {
     this.state = {
       post
     };
+  }
+
+  componentDidMount() {
+    const { id } = this.props.match.params;
+    const { post } = this.state;
+    // if(!post) {
+      this.props.fetchInitialData(id)
+        .then(post => this.setState({ post }));
+    // }
   }
 
   render() {

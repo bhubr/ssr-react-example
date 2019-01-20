@@ -18,6 +18,14 @@ class Grid extends Component {
     };
   }
 
+  componentDidMount() {
+    const { repos } = this.state;
+    if(!repos) {
+      this.props.fetchInitialData(this.props.match.params.id)
+        .then(repos => this.setState({ repos }));
+    }
+  }
+
   render() {
     const { repos } = this.state;
 

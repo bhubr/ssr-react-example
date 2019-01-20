@@ -15,12 +15,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    fetch('/api/posts')
-      .then(res => res.json())
-      .then(posts => this.setState({ posts }));
-  }
-
   render() {
     const { data } = this.props;
     const { posts } = this.state;
