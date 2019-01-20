@@ -3,10 +3,7 @@ import React, { Component } from 'react';
 
 class Grid extends Component {
   render() {
-    const repos = this.props.data;
-    if (!repos) {
-      return <div>Grid unavailable (no data)</div>;
-    }
+    const repos = this.props.staticContext.data
 
     return (
       <div className="row">
