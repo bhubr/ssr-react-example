@@ -4,6 +4,7 @@ import path from 'path';
 import { renderToString } from 'react-dom/server';
 import App from '../shared/App';
 import React from 'react';
+import serialize from 'serialize-javascript';
 
 const PORT = 4040;
 const app = express();
@@ -14,8 +15,6 @@ app.use(cors());
 // client bundle.js file will end up.
 app.use(express.static(path.resolve(__dirname, 'public')));
 
-console.log('public dir', path.resolve(__dirname, 'public'));
-
 app.get('/api/posts', (req, res) => res.json([
   { id: 1, title: 'React + Webpack 4 + Babel 7 Setup Tutorial', url: 'https://www.robinwieruch.de/minimal-react-webpack-babel-setup/' },
   { id: 2, title: 'Server Rendering with React and React Router', url: 'https://tylermcginnis.com/react-router-server-rendering/' },
@@ -25,9 +24,10 @@ app.get('/api/posts', (req, res) => res.json([
 ]));
 
 app.get("*", (req, res, next) => {
+  const data = 'It bloody works';
   const markup = renderToString(
-    <App data="Rendered from server" />
-  )
+    <App data={data} />
+  );
 
   res.send(`
     <!DOCTYPE html>
@@ -38,10 +38,12 @@ app.get("*", (req, res, next) => {
 
       <body>
         <div id="app">${markup}</div>
+
+        <script>window.__INITIAL_DATA__ = ${serialize(data)}</script>
         <script src="/bundle.js" defer></script>
       </body>
     </html>
-  `)
+  `);
 });
 
 app.listen(PORT, () => {
