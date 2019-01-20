@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import Grid from './Grid';
+import PostList from './PostList.js';
 
 class App extends Component {
   constructor(props) {
+    console.log(__isBrowser__ ? 'Running in browser' : 'Running in Node.js');
     super(props);
     this.state = {
       posts: []
@@ -18,17 +21,16 @@ class App extends Component {
     const { data } = this.props;
     const { posts } = this.state;
     return (
-      <div>
+      <div className="container">
         <h1>React SSR</h1>
-        <p><code>data</code> prop: {data ? data : 'N/A'}</p>
-        {
-          posts.map(post => (
-            <div key={post.id}>
-              <h3>{post.title}</h3>
-              <p>Link: <a href={post.url}>{post.url}</a></p>
-            </div>
-          ))
-        }
+        <div className="row">
+          <div className="col-sm-6">
+            <PostList posts={posts} />
+          </div>
+          <div className="col-sm-6">
+            <Grid data={data} />
+          </div>
+        </div>
       </div>
     );
   }
